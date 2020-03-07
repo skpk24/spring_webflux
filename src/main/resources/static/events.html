@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Ghibli App</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Dosis:400,700" rel="stylesheet" />
+    <link href="style.css" rel="stylesheet" />
+  </head>
+
+  <body>
+    <button>Show</button>
+<output></output>
+
+	<script src="https://unpkg.com/rxjs@6.5.4/bundles/rxjs.umd.min.js"></script>
+	<script src="https://requirejs.org/docs/release/2.3.5/minified/require.js"></script>
+	
+    <script>
+    var Rx = require('rx');
+    const albumsApiUrl = `/employees/events`;
+
+
+    const output = document.querySelector('output');  
+    const button = document.querySelector('button');
+
+    Rx.Observable.fromEvent(button, 'click')
+    .subscribe(() => {
+    	output.textContent = Math.random().toString(36).slice(2);
+    });
+
+    
+    </script>
+  </body>
+</html>

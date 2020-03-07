@@ -1,0 +1,33 @@
+version: '3'
+
+
+services:
+  mongo:
+    image: mongo:3.6.5
+    ports:
+      - "27017:27017"
+#    environment:
+#      - MONGO_INITDB_DATABASE=webflux
+#      - MONGO_INITDB_ROOT_USERNAME=mongouser
+#      - MONGO_INITDB_ROOT_PASSWORD=abcdef78
+    command: --bind_ip_all --port 27017 --dbpath /data/db 
+      
+  mongo-client:
+    image: mongoclient/mongoclient
+    ports:
+      - "3030"
+      - "3000"
+    environment:
+      - MONGOCLIENT_DEFAULT_CONNECTION_URL=mongodb://mongo:27017/admin
+    links:
+      - mongo
+
+  spring_webflux:
+    image: skpk24/spring_webflux
+    ports:
+      - "8080:8080"
+    #environment:
+    #  - MONGOCLIENT_DEFAULT_CONNECTION_URL=mongodb://mongouser:abcdef78@mongo:27017/webflux
+    links:
+      - mongo
+    entrypoint: "java -jar /app.jar"
